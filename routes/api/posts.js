@@ -29,7 +29,6 @@ router.get('/', async (req, res) => { //reffers to /api/posts
     if(search == null){
         search = '';
     }
-    console.log(req.query.search)
     const showPosts = await Post.find({"paragraph": {"$regex": search, "$options": 'i'}})
     res.send(await showPosts)
 })

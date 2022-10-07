@@ -2,8 +2,8 @@
   <div>
     <nav>
       <ul>
-        <li @click="clickNewPost()"><i class="fa fa-pencil" aria-hidden="true"></i> Escrever...</li>
-        <li @click="clickNewCategory()"><i class="fa fa-plus" aria-hidden="true"></i> Nova categoria...</li>
+        <li @click="openWritePostWindow()"><i class="fa fa-pencil" aria-hidden="true"></i> Escrever...</li>
+        <li @click="openCategoriesWindow()"><i class="fa fa-plus" aria-hidden="true"></i> Nova categoria...</li>
       </ul>
     </nav>
   </div>
@@ -18,16 +18,16 @@ export default {
     };
   },
   methods:{
-    clickNewPost(){
-      this.$emit('disableExceptPosts')
-      this.$emit('clickNewPost')
+    openWritePostWindow(){
+      this.$emit('closeAllWindowsExceptThis', 'newPost')
+      this.$emit('openWritePostWindow')
     },
-    clickNewCategory(){
-      this.$emit('disableExceptCategory')
-      this.$emit('clickNewCategory')
+    openCategoriesWindow(){
+      this.$emit('closeAllWindowsExceptThis', 'newCategory')
+      this.$emit('openCategoriesWindow')
     },
   },
-  emits: ['clickNewPost', 'clickNewCategory', 'disableExceptPosts', 'disableExceptCategory']
+  emits: ['openWritePostWindow', 'openCategoriesWindow', 'closeAllWindowsExceptThis']
 };
 </script>
 

@@ -8,8 +8,8 @@ const bodyParser = require('body-parser');
 const posts = require('./routes/api/posts')
 const categories = require("./routes/api/categories");
 
-app.use('/api/posts', posts );
-app.use('/api/categories', categories );
+app.use('/api/posts', posts);
+app.use('/api/categories', categories);
 app.use('/api/edit', posts)
 
 
@@ -20,18 +20,16 @@ app.use(cors());
 
 // Handle production
 
-// if (process.env.NODE_ENV === 'production') {
-// 	console.log("on PRODUCTION")
-  
-	  // Static folder
-	  app.use(express.static(__dirname + '/dist/'));
-	
-	  // Handle SPA
-	  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/dist/index.html'));
-	
+//   // Static folder
+//   app.use(express.static(__dirname + '/dist/'));
 
-	// app.get(/.*/, (req, res) => res.sendFile(__dirname + '/hello-world/public/index.html'));
-// }
+//   // Handle SPA
+//   app.get(/.*/, (req, res) => res.sendFile(__dirname + '/dist/index.html'));
+
+
+//Handle development
+app.get(/.*/, (req, res) => res.sendFile(__dirname + '/front/public/index.html'));
+
 
 const port = process.env.PORT || 8080
 app.listen(port, () => {

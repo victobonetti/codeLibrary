@@ -38,7 +38,7 @@
 import postService from "@/postService";
 
 export default {
-  name: "showPosts",
+  name: "singularPost",
   data() {
     return {
       options: false, //

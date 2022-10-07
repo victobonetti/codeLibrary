@@ -17,7 +17,7 @@
 
     <div class="show">
       
-      <ShowPosts 
+      <singularPost 
       v-for="post in posts" 
       :_id="post._id" 
       :title="post.title"
@@ -26,14 +26,14 @@
       :code="post.code"
       v-bind:key="post._id"
       @refresh="searchPosts()"
-      @edit-post="$emit('showEditPost', post._id)"
+      @edit-post="$emit('openPostEditWindow', post._id)"
       />
 
-      <div v-if="posts == '' && startSearch == false">
+      <div v-if="posts == '' && welcomeMessageIsTurnedOff == false">
         <h2>Olá! Para buscar um arquivo, <br />use o campo de busca acima.</h2>
       </div>
 
-      <div v-if="posts == '' && startSearch == true">
+      <div v-if="posts == '' && welcomeMessageIsTurnedOff == true && loading == false">
         <h2>
           Não foram encontrados resultados para esta pesquisa... <br />
           tente buscar novamente inserindo outros dados!
@@ -46,34 +46,34 @@
 
 <script>
 import postService from "@/postService";
-import ShowPosts from "./showPosts.vue";
+import singularPost from "./singularPost.vue";
 
 export default {
-  name: "myMain",
+  name: "postsSection",
   components: {
-    ShowPosts,
+    singularPost,
   },
   data() {
     return {
       search: "",
       loading: false,
       id: "", //
-      startSearch: false,
+      welcomeMessageIsTurnedOff: false,
       posts: []
     };
   },
   methods: {
     async searchPosts() {
-      this.startSearch = true;
+      this.welcomeMessageIsTurnedOff = true;
       this.loading = true;
       let search = document.getElementById("search");
       this.posts = await postService.allPosts(search.value);
       this.loading = false;
       search.value = "";
-      this.$emit('disableAll')
+      this.$emit('closeAllWindows')
     },
   },
-  emits: ['showEditPost', 'disableAll']
+  emits: ['openPostEditWindow', 'closeAllWindows']
 };
 </script>
 
